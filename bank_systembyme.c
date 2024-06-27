@@ -2,7 +2,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+// define boolean value : 
+#define true 1 
+#define false 0
 // structure  liste chainee :
+typedef struct time {
+    unsigned int anne;  // from 1920 to now ;
+    unsigned int mois; //between 1 and 12;
+    unsigned int jour ; // betwwen 1 and 31 ;
+}time;
 typedef struct account {
     int ID_compt;
     char username[50];
@@ -12,9 +20,9 @@ typedef struct account {
     struct account* next_element;
 
 }account;
+
 // function Creat account :
  account*  Creat_Account( account* head_list){
-    int ID_accont= 0; 
     
     account* new_account  = malloc( sizeof(new_account));
     if (new_account == NULL){
@@ -30,12 +38,10 @@ typedef struct account {
     printf("inserez votre password :\n");
     scanf("%d", &new_account->password);
     // getting data:
-    new_account->ID_compt = ID_accont ;
     new_account->balance = 0.0 ;
     new_account->next_element = NULL;
-    ID_accont++;
      // alert message :
-    printf("votre Account est cree correctement ");
+    printf("votre Account est cree correctement \n");
     //ajoute account a liste chainee
     account* tmp = head_list;
     while(tmp->next_element != NULL ){
@@ -44,13 +50,13 @@ typedef struct account {
     tmp= new_account;
     return head_list;
  }
- // function ajoute balance : 
- void ajoute_salaire( account* head){
-    int password;
+ // log in funtion : 
+ int log_in_to_account(account* head){
+int password;
     float adding_ballance;
     char username[50];
     reset_username: 
-    printf("========================== entrez votre compt : =======================");
+    printf("========================== entrez votre compt : ======================= \n ");
     printf(" inserez nom de utilisateur : \n");
     gets(username);
     getchar();// elimination d espace
@@ -81,13 +87,83 @@ typedef struct account {
     tmp->balance = tmp->balance + adding_ballance;
 
  }
+ // 1 show balance : 
+ void show_balance (account* head ){
+    // log in account : 
+    int password;
+    float removing_ballance;
+    char username[50];
+    reset_username: 
+    printf("========================== entrez votre compt : ======================= \n ");
+    printf(" inserez nom de utilisateur : \n");
+    gets(username);
+    getchar();// elimination d espace
+    system("cls");
+    reset_password:
+    printf(" inserez votre mot de pass :  \n");
+    account* tmp = head;
+    while (tmp->next_element != NULL ){
+        if ( username == tmp->username ){
+            if ( password == tmp->password){
+                printf(" login succes ! ");
+                return true ;
+                break;
+            }
+            else {
+                printf(" mot de pass incorrect ");
+                goto reset_password;
+            }
+
+
+        }
+    }
+    return false; 
+ }
+
+ // function ajoute balance : 
+ void ajoute_salaire( account* head){
+    int password;
+    float adding_ballance;
+    char username[50];
+    reset_username: 
+    printf("========================== entrez votre compt : ======================= \ns");
+    printf(" inserez nom de utilisateur : \n");
+    gets(username);
+    getchar();// elimination d espace
+    system("cls");
+    reset_password:
+    printf(" inserez votre mot de pass :  \n");
+    account* tmp = head;
+    while (tmp->next_element != NULL){
+        if ( username == tmp->username ){
+            if ( password == tmp->password){ // go to add balance : 
+                printf(" login succes ! ");
+                goto add_ballance;
+                break;
+            }
+            else { // reset password  :
+                printf(" mot de pass incorrect");
+                goto reset_password;
+            }
+        }
+    }
+    if ( tmp->next_element == NULL){
+        printf("nom de utilisateur incorrect ! ");
+        goto reset_username;
+    }
+    add_ballance :
+    printf(" inserez nombre veul ajouter : \n");
+    scanf("%d", &adding_ballance);
+    tmp->balance = tmp->balance + adding_ballance;
+
+ }
  // getting money : 
  void getting_money( account* head){
     int password;
     float removing_ballance;
     char username[50];
     reset_username: 
-    printf("========================== entrez votre compt : =======================");
+    printf("========================== entrez votre compt : =======================\n");
     printf(" inserez nom de utilisateur : \n");
     gets(username);
     getchar();// elimination d espace
@@ -103,13 +179,13 @@ typedef struct account {
                 break;
             }
             else {
-                printf(" mot de pass incorrect");
+                printf(" mot de pass incorrect \n");
                 goto reset_password;
             }
         }
     }
     if ( tmp->next_element == NULL){
-        printf("nom de utilisateur incorrect ! ");
+        printf("nom de utilisateur incorrect ! \n");
         goto reset_username;
     }
     add_ballance :
@@ -117,10 +193,6 @@ typedef struct account {
     scanf("%d", &removing_ballance);
     tmp->balance = tmp->balance - removing_ballance;
  }
-
-
-
-
  // transfer argent : 
  void transfer_argent( account* head ){
     char destination_money[50];
@@ -131,7 +203,7 @@ typedef struct account {
     int password;
     char username[50];
     system("cls");
-    printf(" ===================== transmition d argent : ====================== \n");
+    printf(" ===================== transmition d'argent : ====================== \n");
 
     reset_username_destinataire :
     printf("entrez nom de utilisteur \n");
@@ -156,12 +228,12 @@ typedef struct account {
         tmp = tmp->next_element; 
     }
     if ( tmp == NULL) {
-        printf("invalide nom de utilisateur !");
+        printf("invalide nom de utilisateur ! \n");
         goto reset_username_destinataire;
     }
     ajoute_balance:
     // log in account ; 
-    printf("========================== entrez votre compt : =======================");
+    printf("========================== entrez votre compt : =======================\n");
     reset_username : 
     printf(" inserez nom de utilisateur : \n");
     gets(username);
@@ -178,7 +250,7 @@ typedef struct account {
                 break;
             }
             else {
-                printf(" mot de pass incorrect");
+                printf(" mot de pass incorrect\n");
                 goto reset_password;
             }
         }
@@ -186,7 +258,7 @@ typedef struct account {
     }
     // si nom  de utilisateure incorrect : 
     if ( tmp2->next_element == NULL){
-        printf("nom de utilisateur incorrect ! ");
+        printf("nom de utilisateur incorrect ! \n");
         goto reset_username;
     }
     login_account = tmp2 ;
@@ -200,11 +272,50 @@ typedef struct account {
         login_account->balance = login_account->balance - transmition;
     }
     else {
-        printf(" votre sold insufaisant pour faire c est action : \n");
+        printf(" votre sold insufaisant pour faire c'est action : \n");
     }
  }
+
 int main () {
+account *list = malloc(sizeof(account));
+if ( list == NULL){
+    exit (0);
+}
+system("cls");
+system("color a");
+int choix; 
+printf(" ================== bank system : ======================= \n");
+printf("[1]: creat account :              \n ");
+printf("[2]: show balance :               \n ");
+printf("[3]: add sold to account:         \n ");
+printf("[4]: get sold from account:       \n ");
 
+ enter_nombre:
+ scanf("%d", &choix);
 
+    while(choix != 5 ){
+        switch( choix){
+            case 1:
+                system("cls");
+                Creat_Account(list); 
+                // break; 
+            case 2 :
+                system("cls");
+                show_balance(list);
+                // break;
+            case 3 :
+                ajoute_salaire(list);
+                system("cls");
+                // break;
+            case 4 : 
+                getting_money(list);
+                system("cls");
+                // break; 
+            default :
+            printf("enter a valid nombre ");
+            goto enter_nombre;
+            // break;
+            }
+    }
     return 0 ; 
 }
