@@ -151,7 +151,7 @@ int password;
     }
     add_ballance :
     printf(" inserez nombre veul ajouter : \n");
-    scanf("%d", &adding_ballance);
+    scanf("%.2f", &adding_ballance);
     tmp->balance = tmp->balance + adding_ballance;
 
  }
@@ -188,7 +188,7 @@ int password;
     }
     add_ballance :
     printf(" inserez nombre veul ajouter : \n");
-    scanf("%d", &removing_ballance);
+    scanf("%.2f", &removing_ballance);
     tmp->balance = tmp->balance - removing_ballance;
  }
  // transfer argent : 
@@ -235,7 +235,7 @@ int password;
     reset_username : 
     printf(" inserez nom de utilisateur : \n");
     gets(username);
-    getchar();// elimination d espace
+    getchar();// elimination space
     system("cls");
     reset_password:
     printf(" inserez votre mot de pass :  \n");
@@ -248,7 +248,7 @@ int password;
                 break;
             }
             else {
-                printf(" mot de pass incorrect\n");
+                printf(" password incorrect !\n");
                 goto reset_password;
             }
         }
