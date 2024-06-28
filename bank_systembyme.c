@@ -6,11 +6,13 @@
 #define true 1 
 #define false 0
 // structure  liste chainee :
+//To be created at the user's birth time : 
 typedef struct time {
     unsigned int anne;  // from 1920 to now ;
     unsigned int mois; //between 1 and 12;
     unsigned int jour ; // between 1 and 31 ;
 }time;
+// creating account structure  :
 typedef struct account {
     int ID_compt;
     char username[50];
@@ -23,36 +25,39 @@ typedef struct account {
 
 // function Creat account :
  account*  Creat_Account( account* head_list){
-    
+     
     account* new_account  = malloc( sizeof(new_account));
+     // cheking memory issue : 
     if (new_account == NULL){
         printf("erreure de creation l'account \n");
         exit(1);
     }
+     // get data from user : 
     printf(" inserez votre nom  : \n");
     gets(new_account->name);
-    getchar();// elimination d espace
+    getchar();// elimination space
     printf("inserez votre nom de utilisateur :\n");
     gets(new_account->username);
-    getchar();// elimination d espace
+    getchar();// elimination space
     printf("inserez votre password :\n");
     scanf("%d", &new_account->password);
-    // getting data:
+    // setting data:
     new_account->balance = 0.0 ;
     new_account->next_element = NULL;
      // alert message :
     printf("votre Account est cree correctement \n");
     //ajoute account a liste chainee
     account* tmp = head_list;
+     //adding account to list of accounts
     while(tmp->next_element != NULL ){
         tmp = tmp->next_element;
     }
     tmp= new_account;
     return head_list;
  }
- // log in funtion : 
+ // login funtion : 
  int log_in_to_account(account* head){
-int password;
+    int password;
     float adding_ballance;
     char username[50];
     reset_username: 
