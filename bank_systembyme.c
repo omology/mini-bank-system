@@ -9,7 +9,7 @@
 typedef struct time {
     unsigned int anne;  // from 1920 to now ;
     unsigned int mois; //between 1 and 12;
-    unsigned int jour ; // betwwen 1 and 31 ;
+    unsigned int jour ; // between 1 and 31 ;
 }time;
 typedef struct account {
     int ID_compt;
